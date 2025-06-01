@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de Aplicaciones</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+    }
+    header {
+      background: #006400;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+    }
+    header img {
+      height: 50px;
+      margin-right: 15px;
+    }
+    main {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    svg {
+      width: 400px;
+      height: auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    path {
+      stroke: #444;
+      stroke-width: 1;
+      fill: #ddd;
+      transition: fill 0.2s;
+    }
+    path:hover {
+      fill: #bbb;
+    }
+    form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      flex: 1;
+      min-width: 300px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 1rem;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #006400;
+      color: white;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #004d00;
+    }
+   /* main {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    
+    #map-container {
+      position: relative;
+      width: 100%;
+      overflow: auto;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    svg {
+      width: 400px;
+      height: auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    
+    .area {
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+    
+    .area:hover {
+      opacity: 1;
+      stroke: #333;
+      stroke-width: 1px;
+    }
+    
+    .selected {
+      stroke: #333 !important;
+      stroke-width: 2px !important;
+      opacity: 1 !important;
+    }
+    
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      pointer-events: none;
+      display: none;
+      z-index: 100;
+    }
+    
+    .form-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    select, input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    /* Estilo para select múltiple */
+    select[multiple] {
+      height: auto;
+      min-height: 100px;
+    }
+    
+    #color-picker {
+      width: 50px;
+      height: 38px;
+      padding: 0;
+      border: 1px solid #ddd;
+    }
+    
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px 0;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    
+    #selected-areas {
+      margin-top: 15px;
+      padding: 10px;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+    
+    #selected-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    #selected-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .remove-area {
+      color: red;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      .form-group {
+        min-width: 100%;
+      }
+      
+      #map-container {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logouf.png" alt="Logo">
+  <h1>Registro de Aplicaciones Agrícolas</h1>
+</header>
+<main>
+<div id="map-container">
+  <svg width="100%" height="100%" viewBox="0 0 1577 2274" fill="none" xmlns="http://www.w3.org/2000/svg">
+     <path d="M337 2007H196V2204H337V2007Z" fill="#D9D9D9" id="M01T01" class="area" title=""></path>
+<path d="M781 2007H639V2204H781V2007Z" fill="#D9D9D9" id="M01T07" class="area" title=""></path>
+<path d="M635 2007H494V2204H635V2007Z" fill="#D9D9D9" id="M01T05" class="area" title=""></path>
+<path d="M482 2007H341V2204H482V2007Z" fill="#D9D9D9" id="M01T03" class="area" title=""></path>
+<path d="M781 1800H639V1998H781V1800Z" fill="#D9D9D9" id="M01T08" class="area" title=""></path>
+<path d="M635 1800H494V1998H635V1800Z" fill="#D9D9D9" id="M01T06" class="area" title=""></path>
+<path d="M482 1800H341V1998H482V1800Z" fill="#D9D9D9" id="M01T04" class="area" title=""></path>
+<path d="M337 1800H196V1998H337V1800Z" fill="#D9D9D9" id="M01T02" class="area" title=""></path>
+<path d="M1381 450H1095V527H1381V450Z" fill="#D9D9D9" id="M10T05" class="area" title=""></path>
+<path d="M1381 284H1095V447H1381V284Z" fill="#D9D9D9" id="M10T03" class="area" title=""></path>
+<path d="M1083 284H796V447H1083V284Z" fill="#D9D9D9" id="M10T01" class="area" title=""></path>
+<path d="M1381 123H1095V280H1381V123Z" fill="#D9D9D9" id="M10T04" class="area active" title=""></path>
+<path d="M1083 123H796V280H1083V123Z" fill="#D9D9D9" id="M10T02" class="area" title=""></path>
+<path d="M337 322H196V399V520H308V480H314V439.5H319.5V399H337V322Z" fill="#D9D9D9" id="M09T01" class="area" title=""></path>
+<path d="M781 70H196V106H781V70Z" fill="#D9D9D9" id="M09T06" class="area" title=""></path>
+<path d="M781 115H639V313H781V115Z" fill="#D9D9D9" id="M09T05" class="area" title=""></path>
+<path d="M635 115H494V313H635V115Z" fill="#D9D9D9" id="M09T04" class="area" title=""></path>
+<path d="M482 115H341V313H482V115Z" fill="#D9D9D9" id="M09T03" class="area" title=""></path>
+<path d="M337 115H196V313H337V115Z" fill="#D9D9D9" id="M09T02" class="area" title=""></path>
+<path d="M781 1587H639V1785H781V1587Z" fill="#D9D9D9" id="M03T07" class="area" title=""></path>
+<path d="M635 1587H494V1785H635V1587Z" fill="#D9D9D9" id="M03T05" class="area" title=""></path>
+<path d="M482 1587H341V1785H482V1587Z" fill="#D9D9D9" id="M03T03" class="area" title=""></path>
+<path d="M337 1587H196V1785H337V1587Z" fill="#D9D9D9" id="M03T01" class="area" title=""></path>
+<path d="M781 1381H639V1578H781V1381Z" fill="#D9D9D9" id="M03T08" class="area" title=""></path>
+<path d="M635 1381H494V1578H635V1381Z" fill="#D9D9D9" id="M03T06" class="area" title=""></path>
+<path d="M482 1381H341V1578H482V1381Z" fill="#D9D9D9" id="M03T04" class="area" title=""></path>
+<path d="M337 1381H196V1578H337V1381Z" fill="#D9D9D9" id="M03T02" class="area" title=""></path>
+<path d="M387 1168H196V1366H387V1168Z" fill="#D9D9D9" id="M05T01" class="area" title=""></path>
+<path d="M586 1168H391V1366H586V1168Z" fill="#D9D9D9" id="M05T03" class="area" title=""></path>
+<path d="M781 1168H591V1366H781V1168Z" fill="#D9D9D9" id="M05T05" class="area" title=""></path>
+<path d="M387 961H196V1159H387V961Z" fill="#D9D9D9" id="M05T02" class="area" title=""></path>
+<path d="M586.344 961.232H391.344V1159.23H586.344V961.232Z" fill="#D9D9D9" id="M05T04" class="area" title=""></path>
+<path d="M781 961H591V1159H781V961Z" fill="#D9D9D9" id="M05T06" class="area" title=""></path>
+<path d="M387 749H196V947H387V749Z" fill="#D9D9D9" id="M07T01" class="area" title=""></path>
+<path d="M587 749H391V947H587V749Z" fill="#D9D9D9" id="M07T03" class="area" title=""></path>
+<path d="M781 749H591V947H781V749Z" fill="#D9D9D9" id="M07T05" class="area" title=""></path>
+<path d="M387 542H196V740H387V542Z" fill="#D9D9D9" id="M07T02" class="area" title=""></path>
+<path d="M587 542H391V740H587V542Z" fill="#D9D9D9" id="M07T04" class="area" title=""></path>
+<path d="M781 542H591V740H781V542Z" fill="#D9D9D9" id="M07T06" class="area" title=""></path>
+<path d="M988 749H796V947H988V749Z" fill="#D9D9D9" id="M08T01" class="area" title=""></path>
+<path d="M1188 749H992V947H1188V749Z" fill="#D9D9D9" id="M08T03" class="area" title=""></path>
+<path d="M1381 749H1191V947H1381V749Z" fill="#D9D9D9" id="M08T05" class="area" title=""></path>
+<path d="M988 542H796V740H988V542Z" fill="#D9D9D9" id="M08T02" class="area" title=""></path>
+<path d="M1188 542H992V740H1188V542Z" fill="#D9D9D9" id="M08T04" class="area" title=""></path>
+<path d="M1381 542H1191V740H1381V542Z" fill="#D9D9D9" id="M08T06" class="area" title=""></path>
+<path d="M988 1208H796V1366H988V1208Z" fill="#D9D9D9" id="M06T01" class="area" title=""></path>
+<path d="M1188 1208H992V1366H1188V1208Z" fill="#D9D9D9" id="M06T03" class="area" title=""></path>
+<path d="M1381 1208H1191V1366H1381V1208Z" fill="#D9D9D9" id="M06T04" class="area" title=""></path>
+<path d="M1083 1082H796V1205H1083V1082Z" fill="#D9D9D9" id="M06T02" class="area" title=""></path>
+<path d="M1381 1082H1095V1205H1381V1082Z" fill="#D9D9D9" id="M06T05" class="area" title=""></path>
+<path d="M1381 961H1095V1078H1381V961Z" fill="#D9D9D9" id="M06T06" class="area" title=""></path>
+<path d="M988 1587H796V1785H988V1587Z" fill="#D9D9D9" id="M04T01" class="area" title=""></path>
+<path d="M1188 1587H992V1785H1188V1587Z" fill="#D9D9D9" id="M04T03" class="area" title=""></path>
+<path d="M1381 1587H1191V1785H1381V1587Z" fill="#D9D9D9" id="M04T05" class="area" title=""></path>
+<path d="M988 1381H796V1578H988V1381Z" fill="#D9D9D9" id="M04T02" class="area" title=""></path>
+<path d="M1422.01 1627.69H1408.45V1646H1422.01V1627.69Z" fill="#D9D9D9" id="PATH_56" class="area" title=""></path>
+<path d="M1431.7 1653.32H1412.33V1675.29H1431.7V1653.32Z" fill="#D9D9D9" id="PATH_57" class="area" title=""></path>
+<path d="M1188 1381H992V1578H1188V1381Z" fill="#D9D9D9" id="M04T04" class="area" title=""></path>
+<path d="M1381 1381H1191V1578H1381V1381Z" fill="#D9D9D9" id="M04T06" class="area" title=""></path>
+<path d="M988 2047H796V2204H988V2047Z" fill="#D9D9D9" id="M02T01" class="area" title=""></path>
+<path d="M1188 2007H992V2204H1188V2007Z" fill="#D9D9D9" id="M02T03" class="area" title=""></path>
+<path d="M988 1880H796V2043H988V1880Z" fill="#D9D9D9" id="M02T02" class="area" title=""></path>
+<path d="M1188 1800H1044V1880H992V1998H1188V1800Z" fill="#D9D9D9" id="M02T04" class="area" title=""></path>
+<path d="M1381 1800H1191V1998H1381V1800Z" fill="#D9D9D9" id="M02T06" class="area" title=""></path>
+<path d="M1380.5 2007H1191V2204H1335L1351.5 2129L1361.5 2087.5L1370.5 2048L1380.5 2007Z" fill="#D9D9D9" id="M02T05" class="area" title=""></path>
+  </svg>
+  <div class="tooltip" id="polygon-tooltip"></div>
+</div>
+
+<form id="form-aplicacion">
+  <button onclick="enviarDatos()">Enviar datos</button>  
+  <div class="form-group">
+    <label for="producto">Productos:</label>
+    <select id="producto" multiple size="4">
+      <option value="" disabled>Cargando productos...</option>
+    </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="fechas">Fechas de aplicación:</label>
+    <input type="text" id="fechas" placeholder="Selecciona fechas">
+  </div>
+  
+  <div class="form-group">
+    <label for="color-picker">Color del área:</label>
+    <input type="color" id="color-picker" value="#90ee90">
+  </div>
+
+
+<div id="selected-areas">
+  <h3>Áreas seleccionadas:</h3>
+  <ul id="selected-list"></ul>
+</div>
+</form>
+
+</main>
+<script>
+  // Inicializar flatpickr
+  flatpickr("#fechas", {
+    mode: "multiple",
+    dateFormat: "Y-m-d",
+    locale: "es"
+  });
+
+  const selectedAreas = new Map(); // Almacena id y color
+  let currentColor = "#90ee90";
+  const colorPicker = document.getElementById("color-picker");
+  const selectedList = document.getElementById("selected-list");
+  const tooltip = document.getElementById("polygon-tooltip");
+
+  // Función para cargar productos desde Google Sheets
+  async function cargarProductos() {
+    try {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwVmi6nlKhZ8OcyCjA-Mp_UBnVMla0iCx4rrJ4yRMzWEPh6ZtEfSmw0W1IWD7P5iA5Q9g/exec?action=getProducts');
+      const productos = await response.json();
+      
+      const select = document.getElementById('producto');
+      select.innerHTML = '';
+      
+      if (productos.length === 0) {
+        select.innerHTML = '<option value="" disabled>No hay productos disponibles</option>';
+        return;
+      }
+      
+      productos.forEach(producto => {
+        const option = document.createElement('option');
+        option.value = producto;
+        option.textContent = producto;
+        select.appendChild(option);
+      });
+      
+      // Añadir placeholder cuando no hay selección
+      select.multiple = true;
+      select.size = 4;
+      
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+      // Opción de respaldo si falla la carga
+      const select = document.getElementById('producto');
+      select.innerHTML = `
+        <option value="Absolute 60SC">Absolute 60SC</option>
+        <option value="Abamectina">Abamectina</option>
+        <option value="Acetamiprid">Acetamiprid</option>
+        <option value="Actifilm">Actifilm</option>
+        <option value="Algasil">Algasil</option>
+        <option value="Aspire">Aspire</option>
+        <option value="Barrera">Barrera</option>
+        <option value="Biokaranya">Biokaranya</option>
+        <option value="Difeconozole">Difeconozole</option>
+        <option value="Matrine">Matrine</option>
+        <option value="Spinetoram">Spinetoram</option>
+        <option value="Spinosad">Spinosad</option>
+      `;
+      select.multiple = true;
+      select.size = 4;
+    }
+  }
+
+  // Configurar tooltips y selección de áreas
+  document.querySelectorAll("svg .area").forEach(area => {
+    // Tooltip
+    area.addEventListener("mouseover", function(e) {
+      tooltip.textContent = `Área: ${this.id}`;
+      tooltip.style.display = 'block';
+      
+      const rect = this.getBoundingClientRect();
+      tooltip.style.left = `${rect.left + window.scrollX}px`;
+      tooltip.style.top = `${rect.top + window.scrollY - 30}px`;
+    });
+    
+    area.addEventListener("mouseout", function() {
+      tooltip.style.display = 'none';
+    });
+    
+    area.addEventListener("mousemove", function(e) {
+      tooltip.style.left = `${e.pageX + 10}px`;
+      tooltip.style.top = `${e.pageY + 10}px`;
+    });
+    
+    // Selección de área
+    area.addEventListener("click", () => {
+      const id = area.id;
+      
+      if (selectedAreas.has(id)) {
+        // Deseleccionar
+        selectedAreas.delete(id);
+        area.classList.remove("selected");
+        area.removeAttribute("data-custom-color");
+        area.style.fill = "";
+      } else {
+        // Seleccionar con color actual
+        selectedAreas.set(id, currentColor);
+        area.classList.add("selected");
+        area.setAttribute("data-custom-color", currentColor);
+        area.style.fill = currentColor;
+      }
+      
+      updateSelectedList();
+    });
+  });
+
+  // Cambiar color actual
+  colorPicker.addEventListener("input", function() {
+    currentColor = this.value;
+    
+    // Aplicar nuevo color a áreas seleccionadas
+    selectedAreas.forEach((color, id) => {
+      selectedAreas.set(id, currentColor);
+      const area = document.getElementById(id);
+      if (area) {
+        area.style.fill = currentColor;
+        area.setAttribute("data-custom-color", currentColor);
+      }
+    });
+    
+    updateSelectedList();
+  });
+
+  // Actualizar lista de áreas seleccionadas
+  function updateSelectedList() {
+    selectedList.innerHTML = '';
+    
+    selectedAreas.forEach((color, id) => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span>${id}</span>
+        <div>
+          <input type="color" value="${color}" class="item-color" data-id="${id}" style="width: 20px; height: 20px; vertical-align: middle;">
+          <span class="remove-area" data-id="${id}">✖</span>
+        </div>
+      `;
+      selectedList.appendChild(li);
+    });
+    
+    // Eventos para cambiar colores individuales
+    document.querySelectorAll('.item-color').forEach(input => {
+      input.addEventListener('change', function() {
+        const id = this.getAttribute('data-id');
+        const newColor = this.value;
+        selectedAreas.set(id, newColor);
+        
+        const area = document.getElementById(id);
+        if (area) {
+          area.style.fill = newColor;
+          area.setAttribute('data-custom-color', newColor);
+        }
+      });
+    });
+    
+    // Eventos para eliminar áreas
+    document.querySelectorAll('.remove-area').forEach(span => {
+      span.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        selectedAreas.delete(id);
+        
+        const area = document.getElementById(id);
+        if (area) {
+          area.classList.remove("selected");
+          area.removeAttribute("data-custom-color");
+          area.style.fill = "";
+        }
+        
+        updateSelectedList();
+      });
+    });
+  }
+
+  async function enviarDatos() {
+    const btn = document.querySelector('button');
+    const originalText = btn.textContent;
+    
+    try {
+      btn.disabled = true;
+      btn.textContent = "Enviando...";
+      
+      // Obtener productos seleccionados (pueden ser múltiples)
+      const productos = Array.from(document.getElementById("producto").selectedOptions)
+                            .map(option => option.value)
+                            .join(", "); // Concatenar con comas
+      
+      const fechas = document.getElementById("fechas").value.split(',').map(f => f.trim());
+      
+      if (!productos || fechas.length === 0 || selectedAreas.size === 0) {
+        alert("Por favor, completa todos los campos y selecciona al menos un área.");
+        return;
+      }
+      
+      const areasArray = Array.from(selectedAreas.keys());
+      const fechasFormateadas = fechas.map(fecha => {
+        const [year, month, day] = fecha.split('-');
+        return `${day}/${month}/${year}`;
+      });
+
+      const datos = {
+        producto: productos,
+        fechas: fechasFormateadas,
+        areas: areasArray,
+        fechaEnvio: new Date().toISOString()
+      };
+      
+      await fetch('https://script.google.com/macros/s/AKfycbwVmi6nlKhZ8OcyCjA-Mp_UBnVMla0iCx4rrJ4yRMzWEPh6ZtEfSmw0W1IWD7P5iA5Q9g/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      });
+      
+      alert("Datos enviados correctamente.");
+      
+      // Limpiar selección
+      selectedAreas.forEach((color, id) => {
+        const area = document.getElementById(id);
+        if (area) {
+          area.classList.remove("selected");
+          area.removeAttribute("data-custom-color");
+          area.style.fill = "";
+        }
+      });
+      selectedAreas.clear();
+      updateSelectedList();
+      document.getElementById("producto").selectedIndex = -1; // Deseleccionar todos
+      document.getElementById("fechas").value = "";
+      
+    } catch (error) {
+      alert("Error al enviar datos. Por favor, inténtalo de nuevo.");
+      console.error(error);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    }
+  }
+
+  // Hacer el mapa responsive
+  function adjustMapSize() {
+    const container = document.getElementById('map-container');
+    const svg = document.querySelector('svg');
+    
+    const containerWidth = container.offsetWidth;
+    const aspectRatio = 1577 / 2274;
+    
+    svg.style.width = containerWidth + 'px';
+    svg.style.height = (containerWidth / aspectRatio) + 'px';
+  }
+  
+  // Inicialización
+  document.addEventListener('DOMContentLoaded', () => {
+    adjustMapSize();
+    cargarProductos();
+  });
+  
+  window.addEventListener('resize', adjustMapSize);
+</script>
+
+</body>
+</html>
